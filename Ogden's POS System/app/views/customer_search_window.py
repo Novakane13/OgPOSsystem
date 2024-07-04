@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from initialize_db import create_db_connection
+from customer_account_window import CustomerAccountWindow
 import sqlite3
 
 class CustomerSearchWindow(tk.Toplevel):
@@ -51,11 +52,11 @@ class CustomerSearchWindow(tk.Toplevel):
         cursor = self.db_conn.cursor()
         query = "SELECT * FROM customers WHERE first_name LIKE ? AND last_name LIKE ? AND phone LIKE ?"
         cursor.execute(query, (f"%{first_name}%", f"%{last_name}%", f"%{phone}%"))
-        results = cursor.fetchall()
+        result = cursor.fetchall()
 
-        self.results_listbox.delete(0, tk.END)
-        for customer in results:
-            self.results_listbox.insert(tk.END, f"{customer[1]} {customer[2]} - {customer[3]}")
+        self.result_list.delete(0, tk.END)
+        for customer in result:
+            self.result_list.insert(tk.END, f"{customer[1]} {customer[2]} - {customer[3]}")
             
     def select_customer(self):
         selection = self.result_list.get(self.result_list.curselection())
@@ -69,11 +70,11 @@ class CustomerSearchWindow(tk.Toplevel):
         conn.close()
 
         self.destroy()
- #       CustomerAccountWindow(customer_id)
+        CustomerAccountWindow(customer_id)
 
     def create_new_customer(self):
         self.destroy()
-   #     CustomerAccountWindow()
+        CustomerAccountWindow()
 
 if __name__ == "__main__":
     conn = create_db_connection()

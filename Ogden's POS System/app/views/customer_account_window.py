@@ -5,9 +5,9 @@ from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
 import sqlite3
 import requests
-#from app.views.ticket_type import TicketTypeWindow
-#from app.views.detailed_ticket import DetailedTicketCreationWindow
-#from app.views.quick_ticket import QuickTicketWindow
+from ticket_type import TicketTypeWindow
+from detailed_ticket import DetailedTicketCreationWindow
+from quick_ticket import QuickTicketWindow
 
 class CustomerAccountWindow(tk.Toplevel):
     def __init__(self, parent, db_conn, customer_id=None):
@@ -103,7 +103,6 @@ class CustomerAccountWindow(tk.Toplevel):
         CustomerSearchWindow(self.master, self.db_conn)
 
     def handle_button_click(self, button):
-        # Placeholder for handling button clicks
         messagebox.showinfo(button, f"{button} functionality not yet implemented.")
 
     def load_customer_data(self):
@@ -160,8 +159,8 @@ class CustomerAccountWindow(tk.Toplevel):
                 col = 0
                 row += 1
 
-  #  def open_ticket_creation_window(self, ticket_type_id):
-  #      DetailedTicketCreationWindow(self, self.db_conn, self.customer_id, ticket_type_id)
+    def open_ticket_creation_window(self, ticket_type_id):
+        DetailedTicketCreationWindow(self, self.db_conn, self.customer_id, ticket_type_id)
 
     def load_ticket_types(self):
         cursor = self.db_conn.cursor()
@@ -182,8 +181,8 @@ class CustomerAccountWindow(tk.Toplevel):
         for ticket in tickets:
             self.tickets_tree.insert('', 'end', values=ticket)
 
-  #  def create_ticket(self, ticket_type):
-   #     DetailedTicketCreationWindow(self, self.db_conn, self.customer_id, ticket_type[0])
+    def create_ticket(self, ticket_type):
+        DetailedTicketCreationWindow(self, self.db_conn, self.customer_id, ticket_type[0])
 
     def load_ticket_types(self):
         try:
@@ -198,8 +197,8 @@ class CustomerAccountWindow(tk.Toplevel):
         except requests.exceptions.RequestException as e:
             messagebox.showerror("Error", f"Failed to connect to the server: {e}")
 
- #   def create_quick_ticket(self):
- #       QuickTicketWindow(self, self.db_conn)
+    def create_quick_ticket(self):
+        QuickTicketWindow(self, self.db_conn)
 
     def submit_quick_ticket(self):
         quick_ticket = {
