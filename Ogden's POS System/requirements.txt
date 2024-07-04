@@ -1,0 +1,7 @@
+tkinter
+flask
+flask_sqlalchemy
+Pillow
+tkcalendar
+sqlite3
+requests
